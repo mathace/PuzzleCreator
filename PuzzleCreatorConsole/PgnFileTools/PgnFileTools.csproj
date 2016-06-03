@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F0E2A515-BF08-4242-AF59-619FDB5AEC5F}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{3346260B-462A-4207-8390-97907E50B4D1}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PuzzleCreatorConsole</RootNamespace>
-    <AssemblyName>PuzzleCreatorConsole</AssemblyName>
+    <RootNamespace>PgnFileTools</RootNamespace>
+    <AssemblyName>PgnFileTools</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,7 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MvbaCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="FluentAssert">
+      <HintPath>F:\programming\source codes\PgnFileTools-master\lib\FluentAssert\FluentAssert.dll</HintPath>
+    </Reference>
+    <Reference Include="MvbaCore">
+      <HintPath>F:\programming\source codes\PgnFileTools-master\lib\MvbaCore\MvbaCore.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>F:\programming\source codes\PgnFileTools-master\lib\NUnit\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,20 +49,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="AlgebraicMoveParser.cs" />
+    <Compile Include="Constants\CastleType.cs" />
+    <Compile Include="Constants\File.cs" />
+    <Compile Include="Constants\PieceColor.cs" />
+    <Compile Include="Constants\PieceType.cs" />
+    <Compile Include="Constants\Row.cs" />
+    <Compile Include="Constants\SymbolicMoveAnnotation.cs" />
+    <Compile Include="Extensions\ExpressionExtensions.cs" />
+    <Compile Include="Extensions\TextReaderExtensions.cs" />
+    <Compile Include="GameInfo.cs" />
+    <Compile Include="GameInfoParser.cs" />
+    <Compile Include="Move.cs" />
+    <Compile Include="PgnStreamReader.cs" />
+    <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="Carlsen.pgn">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\PgnFileTools\PgnFileTools.csproj">
-      <Project>{3346260b-462a-4207-8390-97907e50b4d1}</Project>
-      <Name>PgnFileTools</Name>
-    </ProjectReference>
+    <Compile Include="SearchRequestParser.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
