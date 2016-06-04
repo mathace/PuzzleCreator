@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ZhTools
-{
-    public class Class1
+{    public class Constants
     {
     }
 }
