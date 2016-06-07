@@ -58,6 +58,10 @@
       <Project>{3346260b-462a-4207-8390-97907e50b4d1}</Project>
       <Name>PgnFileTools</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ZhTools\ZhTools.csproj">
+      <Project>{537c95e2-eb09-49ca-93d5-3a81c41f2823}</Project>
+      <Name>ZhTools</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
