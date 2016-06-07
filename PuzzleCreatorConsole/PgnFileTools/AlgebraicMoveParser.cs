@@ -105,9 +105,9 @@ namespace PgnFileTools
                 }
                 return move;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-               var k = 6 ;
+
             }
 
             return null;
