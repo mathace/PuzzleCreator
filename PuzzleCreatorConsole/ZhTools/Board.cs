@@ -11,6 +11,7 @@ namespace ZhTools
         #region Key Defining Fields: These Define Board
 
         private Piece[] squareToPiece = new Piece[64];
+        internal Int32[] OffBoardPieces = new Int32[30];
         internal UInt64[] PieceToBitboard = new UInt64[13];
         public UInt64 ZobristHash = 0;
         // OptimiseTODO: get rid of the class and inline castling and en passant inside this class and 
@@ -53,7 +54,7 @@ namespace ZhTools
 
         // Although 218 seems to be the max number of moves in any position, setting it to 400 
         // just in case (e.g. if there are more pseudo legal moves and 218 might be the max no of strictly legal moves)
-        private const int MaxNumberOfMoves = 400;
+        private const int MaxNumberOfMoves = 800;
 
         #endregion
 
@@ -126,6 +127,11 @@ namespace ZhTools
             PieceToBitboard[Piece.WhiteKnight.Index] = Constants.InitialWhiteKnightsBitboard;
             PieceToBitboard[Piece.WhitePawn.Index] = Constants.InitialWhitePawnsBitboard;
             PieceToBitboard[Piece.None.Index] = 0;
+
+            for(int i =0; i<30; i++)
+            {
+                OffBoardPieces[i] = Piece.None.Index;
+            }
 
             Initialiser initialiser = new Initialiser();
             _rayAttacks = initialiser.GenerateRayAttacks();
@@ -525,7 +531,7 @@ namespace ZhTools
         public BoardState GetBoardState()
         {
             BoardState currentBoardState = new BoardState((Piece[])squareToPiece.Clone(),
-                (UInt64[])PieceToBitboard.Clone(),
+                (UInt64[])PieceToBitboard.Clone(), (Int32[])OffBoardPieces.Clone(),
                 new CastlingAndEnPassantRights(castlingAndEnPassant),
                 sideToMove, ZobristHash);
 

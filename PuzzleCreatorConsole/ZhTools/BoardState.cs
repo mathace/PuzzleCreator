@@ -10,15 +10,17 @@ namespace ZhTools
     {
         public Piece[] CurrentBoardPosition;
         public UInt64[] PieceToBitboard;
+        public Int32[] OffBoardPieces = new Int32[30];
         public CastlingAndEnPassantRights CastlingAndEnPassant;
         public int SideToMove;
         public UInt64 ZobristHash;
 
-        public BoardState(Piece[] currentBoardPosition, UInt64[] pieceToBitboard,
+        public BoardState(Piece[] currentBoardPosition, UInt64[] pieceToBitboard, Int32[] offBoardPieces,
             CastlingAndEnPassantRights castlingAndEnPassant, int sideToMove, UInt64 zobristHash)
         {
             CurrentBoardPosition = currentBoardPosition;
             PieceToBitboard = pieceToBitboard;
+            OffBoardPieces = offBoardPieces;
             CastlingAndEnPassant = castlingAndEnPassant;
             SideToMove = sideToMove;
             ZobristHash = zobristHash;
@@ -38,13 +40,32 @@ namespace ZhTools
         // to create a board state from a FEN string.
         public string ToFenString()
         {
-            string fenStringFormat = "{0} w KQkq - 0 1";
+            string fenStringFormat = "{0}[{1}] w KQkq - 0 1";
+            string offboardpiecesString = "";
             UInt64 pieceBitboard = 0;
             char[] fenCharArray = new char[64];
             // initialise the FEN char array
             for (int i = 0; i < 64; i++)
             {
                 fenCharArray[i] = '1';
+            }
+            for (int i = 0; i<30; i++)
+            {
+                switch(OffBoardPieces[i])
+                {
+                    case 0: offboardpiecesString += "p"; break;
+                    case 1: offboardpiecesString += "n"; break;
+                    case 2: offboardpiecesString += "b"; break;
+                    case 3: offboardpiecesString += "r"; break;
+                    case 4: offboardpiecesString += "q"; break;
+                    case 12: offboardpiecesString += "P"; break;
+                    case 11: offboardpiecesString += "N"; break;
+                    case 10: offboardpiecesString += "B"; break;
+                    case 9: offboardpiecesString += "R"; break;
+                    case 8: offboardpiecesString += "Q"; break;
+                    default: break;
+                }
+
             }
             pieceBitboard = PieceToBitboard[Piece.BlackBishop.Index];
             PopulateFenCharArray(ref fenCharArray, pieceBitboard, 'b');
@@ -84,7 +105,7 @@ namespace ZhTools
 
             string fenPositionString = GetFenPositionString(fenCharArray);
 
-            string fenString = String.Format(fenStringFormat, fenPositionString);
+            string fenString = String.Format(fenStringFormat, fenPositionString, offboardpiecesString);
 
             return fenString;
         }
